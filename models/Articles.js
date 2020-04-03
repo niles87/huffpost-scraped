@@ -5,11 +5,11 @@ const Schema = mongoose.Schema;
 const ArticleSchema = new Schema({
   title: {
     type: String,
-    required: true,
+    required: "needs something here",
   },
   link: {
     type: String,
-    required: true,
+    required: "needs something here",
   },
   description: {
     type: String,

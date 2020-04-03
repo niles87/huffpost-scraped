@@ -6,7 +6,7 @@ const cheerio = require("cheerio");
 
 const db = require("../models");
 
-router.post("/scrape", (req, res) => {
+router.get("/scrape", (req, res) => {
   axios.get("https://www.huffpost.com/news/").then(function(response) {
     let $ = cheerio.load(response.data);
 
@@ -31,18 +31,20 @@ router.post("/scrape", (req, res) => {
       db.Article.create(results)
         .then(dbArticle => {
           console.log(dbArticle);
+
+          res.sendStatus(200);
         })
         .catch(err => {
           console.log(err);
         });
     });
-
-    res.sendStatus(200);
   });
 });
 
 router.get("/", (req, res) => {
-  res.render("index");
+  db.Article.find().then(articles => {
+    res.render("articles", articles);
+  });
 });
 
 module.exports = router;
