@@ -29,21 +29,31 @@ router.get("/scrape", (req, res) => {
           console.log(err.message);
         });
     });
-    res.send("scrape complete");
+    res.redirect("/articles");
   });
 });
 
+// See scraped articles route
 router.get("/articles", (req, res) => {
   db.Article.find({}, null, { lean: true }).then((dbArticle) => {
-    console.log("================");
-    console.log(dbArticle);
-    res.render("articles", {
-      news: dbArticle,
-    });
+    res.render("articles", { news: dbArticle });
   });
 });
 
-router.get("/", (req, res) => {
-  res.render("articles");
+// See saved articles route
+router.get("/saved_articles", (req, res) => {
+  db.Article.find({ isSaved: true }, null, { lean: true }).then((dbSaved) => {
+    console.log("below is the saved articles sent to html");
+    console.log(dbSaved);
+    res.render("articles", { news: dbSaved });
+  });
 });
+
+// Saving articles route
+router.post("/save_article/:id", (req, res) => {
+  db.Article.findByIdAndUpdate({ _id: req.params.id }, { isSaved: true }).then((data) => {
+    res.sendStatus(200);
+  });
+});
+
 module.exports = router;

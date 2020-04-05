@@ -27,6 +27,9 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 const routes = require("./routes/routes");
 
+app.get("/", (req, res) => {
+  res.render("index");
+});
 app.use(routes);
 
 app.listen(PORT, () => {

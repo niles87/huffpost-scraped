@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  color: #ffffff;
+}
+
+body {
+  background-image: radial-gradient(#00629b, #1d73a5, #4f94bd, #7bb3d4, #9dc5db, #9bbccf);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
+footer {
+  width: 100%;
+  height: 50px;
+  background-image: linear-gradient(to left, #e60000, #e21919, #e13b3b, #e15757, #e18787);
+  position: fixed;
+  bottom: 0;
+}
+
+nav {
+  height: 50px;
+  background-image: linear-gradient(to right, #e60000, #e21919, #e13b3b, #e15757, #e18787);
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+nav.buttons {
+  height: 100%;
+}
+
+.buttons a {
+  /* ju */
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  color: #ffffff;
+  background-color: #013355;
+  border: none;
+}
+
+div.jumbo {
+  width: 75%;
+  height: 300px;
+  position: relative;
+  top: 50%;
+  left: 12.5%;
+  background-image: url("../imgs/newspaper_background.jpg");
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+div.jumbo h1 {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 60px;
+  color: #000000;
+}
+
+.container {
+  max-width: 960px;
+  margin: 20px auto 50px auto;
+}
+
+.container h1 {
+  text-align: center;
+}
+
+.article {
+  border-bottom: 2px solid #ffffff;
+}
+
+.article h3 {
+  margin-top: 5px;
+}
+
+.article p {
+  margin: 5px 0;
+  color: #000000;
+}
+
+.article button {
+  padding: 5px;
+  margin: 10px 10px;
+  border-radius: 5px;
+  color: #ffffff;
+  border: none;
+}
+
+.save {
+  background-color: #008000;
+}
+
+.delete {
+  background-color: transparent;
+}
+
+.delete i {
+  font-size: 15px;
+  color: #ff0000;
+}
+
+a {
+  text-decoration: none;
+}

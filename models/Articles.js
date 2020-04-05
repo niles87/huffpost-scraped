@@ -6,19 +6,28 @@ const ArticleSchema = new Schema({
   title: {
     type: String,
     required: "needs something here",
+    unique: "already here",
   },
   link: {
     type: String,
     required: "needs something here",
+    unique: "already here",
   },
   description: {
     type: String,
-    default: "No Description",
+    required: "No Description",
+    unique: "already here",
   },
-  note: {
-    type: Schema.Types.ObjectId,
-    ref: "Note",
+  isSaved: {
+    type: Boolean,
+    default: false,
   },
+  note: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Note",
+    },
+  ],
 });
 
 const Article = mongoose.model("Article", ArticleSchema);

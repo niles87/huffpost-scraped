@@ -1,10 +1,12 @@
 <div class="container">
     {{#each news}}
     <div class="article">
-        <p class="title">
+        <h3>
             <a href="{{link}}">{{title}}</a>
-        </p>
-        <p class="description">{{description}}</p>
+        </h3>
+        <p>{{description}}</p>
+        <button class="save" data-id="{{_id}}" data-saved="{{isSaved}}">Save</button>
+        <button class="delete" data-id="{{_id}}"><i class="fas fa-times"></i></button>
     </div>
     {{/each}}
 </div>
