@@ -57,7 +57,10 @@ $(function () {
         title: $("#modal-form").data("title"),
         body: $("textarea").val(),
       },
-    }).then((data) => closeModal());
+    }).then((data) => {
+      closeModal();
+      location.reload();
+    });
   });
 
   // Delete Note

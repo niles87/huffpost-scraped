@@ -35,29 +35,53 @@ router.get("/scrape", (req, res) => {
 
 // See scraped articles route
 router.get("/articles", (req, res) => {
-  db.Article.find({}, null, { lean: true }).then((dbArticle) => {
-    res.render("articles", { news: dbArticle });
-  });
+  db.Article.find({}, null, { lean: true })
+    .then((dbArticle) => {
+      res.render("articles", { news: dbArticle });
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 });
 
 // See saved articles route
 router.get("/saved_articles", (req, res) => {
-  db.Article.find({ isSaved: true }, null, { lean: true }).then((dbSaved) => {
-    res.render("articles", { news: dbSaved });
-  });
+  db.Article.find({ isSaved: true }, null, { lean: true })
+    .then((dbSaved) => {
+      res.render("articles", { news: dbSaved });
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 });
 
 // Saving articles route
 router.post("/save_article/:id", (req, res) => {
-  db.Article.findByIdAndUpdate({ _id: req.params.id }, { isSaved: true }).then((data) => {
-    res.sendStatus(200);
-  });
+  db.Article.findByIdAndUpdate({ _id: req.params.id }, { isSaved: true })
+    .then((data) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 });
 
 router.post("/notes", (req, res) => {
-  console.log("----------------");
-  console.log(req.body);
-  console.log("----------------");
+  const note = { title: req.body.title, body: req.body.body };
+  db.Note.create(note)
+    .then((data) => {
+      return db.Article.findByIdAndUpdate(
+        { _id: req.body.id },
+        { $push: { note: data._id } },
+        { new: true }
+      );
+    })
+    .then((saved) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 });
 
 router.get("/notes/:id", (req, res) => {
@@ -67,7 +91,6 @@ router.get("/notes/:id", (req, res) => {
       res.json(data);
     });
   });
-  // res.sendStatus(200);
 });
 
 router.delete("/note/:id", (req, res) => {
