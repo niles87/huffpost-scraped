@@ -1,12 +1,41 @@
 <div class="container">
     {{#each news}}
     <div class="article">
-        <h3>
-            <a href="{{link}}">{{title}}</a>
-        </h3>
-        <p>{{description}}</p>
-        <button class="save" data-id="{{_id}}" data-saved="{{isSaved}}">Save</button>
-        <button class="delete" data-id="{{_id}}"><i class="fas fa-times"></i></button>
+        {{#if isSaved}}
+        {{>articles/saved-article-block}}
+        {{else}}
+        {{>articles/article-block}}
+        {{/if}}
     </div>
     {{/each}}
+</div>
+<div class="modal" id="modal" data-animation="slideInOutLeft">
+    <div class="modal-dialog">
+        <header class="modal-header">
+            <p>Add Your Note</p>
+            <button class="close-modal" aria-label="close modal"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="modal-content">
+            <form id="modal-form" data-id="" data-title="">
+                <textarea cols="40" rows="10"></textarea>
+                <br>
+                <button id="submit" type="submit">Save Note</button>
+            </form>
+        </section>
+    </div>
+</div>
+<div class="modal" id="note-modal" data-animation="slideInOutLeft">
+    <div class="modal-dialog">
+        <header class="modal-header">
+            <p>Notes</p>
+            <button class="close-modal" aria-label="close modal"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="modal-content">
+            {{#each news}}
+            {{#if isSaved}}
+            {{>articles/notes}}
+            {{/if}}
+            {{/each}}
+        </section>
+    </div>
 </div>

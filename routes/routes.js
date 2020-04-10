@@ -43,8 +43,6 @@ router.get("/articles", (req, res) => {
 // See saved articles route
 router.get("/saved_articles", (req, res) => {
   db.Article.find({ isSaved: true }, null, { lean: true }).then((dbSaved) => {
-    console.log("below is the saved articles sent to html");
-    console.log(dbSaved);
     res.render("articles", { news: dbSaved });
   });
 });
@@ -56,4 +54,25 @@ router.post("/save_article/:id", (req, res) => {
   });
 });
 
+router.post("/notes", (req, res) => {
+  console.log("----------------");
+  console.log(req.body);
+  console.log("----------------");
+});
+
+router.get("/notes/:id", (req, res) => {
+  db.Article.findById({ _id: req.params.id }, function (err, response) {
+    console.log(response.note[0]);
+    db.Note.find({ _id: response.note[0] }, null, { lean: true }, function (error, data) {
+      res.json(data);
+    });
+  });
+  // res.sendStatus(200);
+});
+
+router.delete("/note/:id", (req, res) => {
+  db.Note.findOneAndDelete({ _id: req.params.id }, (err, response) => {
+    res.sendStatus(200);
+  });
+});
 module.exports = router;

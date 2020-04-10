@@ -6,17 +6,17 @@ const ArticleSchema = new Schema({
   title: {
     type: String,
     required: "needs something here",
-    unique: "already here",
+    unique: { index: { unique: true } },
   },
   link: {
     type: String,
     required: "needs something here",
-    unique: "already here",
+    unique: { index: { unique: true } },
   },
   description: {
     type: String,
     required: "No Description",
-    unique: "already here",
+    unique: { index: { unique: true } },
   },
   isSaved: {
     type: Boolean,

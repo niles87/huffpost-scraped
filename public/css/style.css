@@ -1,9 +1,19 @@
+:root {
+  --red: #e60000;
+  --linear2: #e21919;
+  --linear3: #e13b3b;
+  --linear4: #e15757;
+  --linear5: #e18787;
+  --white: #fff;
+  --black: #00000096;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: sans-serif;
-  color: #ffffff;
+  color: var(--white);
 }
 
 body {
@@ -14,17 +24,35 @@ body {
   background-attachment: fixed;
 }
 
+button {
+  outline: none;
+}
+
 footer {
   width: 100%;
   height: 50px;
-  background-image: linear-gradient(to left, #e60000, #e21919, #e13b3b, #e15757, #e18787);
+  background-image: linear-gradient(
+    to left,
+    var(--red),
+    var(--linear2),
+    var(--linear3),
+    var(--linear4),
+    var(--linear5)
+  );
   position: fixed;
   bottom: 0;
 }
 
 nav {
   height: 50px;
-  background-image: linear-gradient(to right, #e60000, #e21919, #e13b3b, #e15757, #e18787);
+  background-image: linear-gradient(
+    to right,
+    var(--red),
+    var(--linear2),
+    var(--linear3),
+    var(--linear4),
+    var(--linear5)
+  );
   position: relative;
   display: flex;
   align-items: center;
@@ -39,14 +67,14 @@ nav.buttons {
   padding: 5px;
   margin: 5px;
   border-radius: 5px;
-  color: #ffffff;
+  color: var(--white);
   background-color: #013355;
   border: none;
 }
 
 div.jumbo {
   width: 75%;
-  height: 300px;
+  height: 200px;
   position: relative;
   top: 50%;
   left: 12.5%;
@@ -62,12 +90,14 @@ div.jumbo h1 {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 60px;
-  color: #000000;
+  color: var(--black);
 }
 
 .container {
-  max-width: 960px;
+  max-width: 860px;
   margin: 20px auto 50px auto;
+  max-height: 400px;
+  overflow: scroll;
 }
 
 .container h1 {
@@ -75,7 +105,8 @@ div.jumbo h1 {
 }
 
 .article {
-  border-bottom: 2px solid #ffffff;
+  margin: 5px;
+  border-bottom: 2px solid var(--white);
 }
 
 .article h3 {
@@ -84,30 +115,136 @@ div.jumbo h1 {
 
 .article p {
   margin: 5px 0;
-  color: #000000;
+  color: var(--black);
+  cursor: default;
 }
 
 .article button {
   padding: 5px;
   margin: 10px 10px;
   border-radius: 5px;
-  color: #ffffff;
+  color: var(--white);
   border: none;
+}
+
+.note {
+  background-color: #0019a7;
+  cursor: pointer;
+}
+
+.view-note {
+  cursor: pointer;
+  background-color: darkslateblue;
 }
 
 .save {
   background-color: #008000;
+  cursor: pointer;
 }
 
 .delete {
   background-color: transparent;
+  cursor: pointer;
 }
 
 .delete i {
   font-size: 15px;
-  color: #ff0000;
+  color: var(--red);
 }
 
 a {
   text-decoration: none;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: var(--black);
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.35s ease-in;
+}
+
+.modal-dialog {
+  position: relative;
+  max-width: 800px;
+  max-height: 80vh;
+  border-radius: 5px;
+  background: var(--white);
+  overflow: auto;
+  cursor: default;
+}
+
+.modal-dialog > * {
+  padding: 1rem;
+}
+
+.modal-header {
+  background: #efefef;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header p {
+  color: var(--black);
+}
+
+.modal-header .close-modal {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.close-modal i {
+  color: var(--red);
+}
+
+.modal p + p {
+  margin-top: 1rem;
+}
+
+textarea {
+  color: #000;
+}
+
+#submit {
+  background-color: #0019a7;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+}
+
+.modal.is-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.note-body {
+  color: var(--black);
+  display: inline;
+}
+
+/* animations */
+
+[data-animation="slideInOutLeft"] .modal-dialog {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all 0.5s cubic-bezier(0.51, 0.92, 0.24, 1.15);
+}
+
+[data-animation="slideInOutLeft"].is-visible .modal-dialog {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.2s;
 }

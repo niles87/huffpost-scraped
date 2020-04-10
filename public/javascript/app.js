@@ -5,15 +5,16 @@ $(function () {
   }
 
   // Get articles button
-  $(".scrape").on("click", (event) => {
+  $(".scrape").on("click", function (event) {
     $.ajax({ url: "/scrape", method: "GET" }).then((data) => console.log("scraped"));
   });
 
   // Save button
-  $(document).on("click", ".save", (event) => {
-    const id = $(this).data("id");
+  $(document).on("click", ".save", function (event) {
+    const id = $(this).attr("data-id");
     const saved = $(this).data("saved");
     const savedState = { saved: saved };
+    console.log(id);
     console.log(savedState);
     console.log(saved);
     $.ajax({ url: "/save_article/" + id, method: "POST", data: savedState }).then((data) => {
@@ -23,7 +24,7 @@ $(function () {
   });
 
   // Note button
-  $(document).on("click", ".note", (event) => {
+  $(document).on("click", ".note", function (event) {
     const id = $(this).data("id");
     const modalID = $(this).data("open");
     const title = $(this).data("title");
@@ -31,18 +32,22 @@ $(function () {
     $("#modal-form").attr("data-id", id).attr("data-title", title);
   });
 
-  $(document).on("click", ".view-note", (event) => {
+  $(document).on("click", ".view-note", function (event) {
     const modalID = $(this).data("open");
     const id = $(this).data("id");
-    const note = $(this).data("note");
-    console.log(note);
-    $.ajax({ url: "/notes/" + id, method: "GET", data: { id: note } }).then((data) => {
+
+    // console.log(note);
+    $.ajax({ url: "/notes/" + id, method: "GET" }).then((data) => {
+      let noteBody = data[0].body;
+
+      $(".note-body").html(noteBody);
+
       $("#" + modalID).addClass("is-visible");
     });
   });
 
   // Submit Note
-  $("#submit").on("click", (event) => {
+  $("#submit").on("click", function (event) {
     event.preventDefault();
     $.ajax({
       url: "/notes",
@@ -56,9 +61,10 @@ $(function () {
   });
 
   // Delete Note
-  $(document).on("click", ".delete", (event) => {
-    const id = $(this).data("id");
-    $.ajax({ url: "/articles" + id, method: "DELETE" }).then((data) => location.reload());
+  $(document).on("click", ".delete", function (event) {
+    const id = $(this).data("note");
+    console.log(id);
+    $.ajax({ url: "/note/" + id, method: "DELETE" }).then((data) => location.reload());
   });
 
   // Close Modal
