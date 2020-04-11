@@ -30,4 +30,4 @@ Web scraping application that gathers the title and links to articles from the H
 
 To run the application locally first clone this repository to your local machine then run `npm install`. 
 Once dependencies have been installed insure that `mongoDB` is installed on your machine. Navigate to the root of the project then in the terminal run `npm start` and navigate to `http://localhost:4000` in your browser.
-Otherwise to use the application on the web [here](https://quiet-shelf-47328.herokuapp.com/ "Heroku Deployed Page")
+Otherwise to use the application on the web [click here](https://quiet-shelf-47328.herokuapp.com/ "Heroku Deployed Page")
