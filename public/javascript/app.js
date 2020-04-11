@@ -35,12 +35,15 @@ $(function () {
   $(document).on("click", ".view-note", function (event) {
     const modalID = $(this).data("open");
     const id = $(this).data("id");
-
+    console.log(id);
     // console.log(note);
     $.ajax({ url: "/notes/" + id, method: "GET" }).then((data) => {
+      console.log(data);
       let noteBody = data[0].body;
+      let noteTitle = data[0].title;
 
       $(".note-body").html(noteBody);
+      $(".note-title").html(noteTitle);
 
       $("#" + modalID).addClass("is-visible");
     });

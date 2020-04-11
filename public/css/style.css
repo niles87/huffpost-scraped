@@ -232,7 +232,13 @@ textarea {
 
 .note-body {
   color: var(--black);
+  margin: 5px 5px 5px 0;
   display: inline;
+}
+
+.note-title {
+  color: var(--black);
+  border-bottom: 1px solid var(--black);
 }
 
 /* animations */

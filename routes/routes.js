@@ -85,7 +85,7 @@ router.post("/notes", (req, res) => {
 });
 
 router.get("/notes/:id", (req, res) => {
-  db.Article.findById({ _id: req.params.id }, function (err, response) {
+  db.Article.findById({ _id: req.params.id }).then((response) => {
     console.log(response.note[0]);
     db.Note.find({ _id: response.note[0] }, null, { lean: true }, function (error, data) {
       res.json(data);
@@ -98,4 +98,5 @@ router.delete("/note/:id", (req, res) => {
     res.sendStatus(200);
   });
 });
+
 module.exports = router;
