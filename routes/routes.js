@@ -86,8 +86,12 @@ router.post("/notes", (req, res) => {
 
 router.get("/notes/:id", (req, res) => {
   db.Article.findById({ _id: req.params.id }).then((response) => {
-    console.log(response.note[0]);
-    db.Note.find({ _id: response.note[0] }, null, { lean: true }, function (error, data) {
+    let noteArr = [];
+    response.note.forEach((note) => {
+      noteArr.push(note);
+    });
+    console.log(noteArr);
+    db.Note.find({ _id: noteArr }, null, { lean: true }, function (error, data) {
       res.json(data);
     });
   });
