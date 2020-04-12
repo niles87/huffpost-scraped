@@ -98,7 +98,7 @@ router.get("/notes/:id", (req, res) => {
 });
 
 router.delete("/note/:id", (req, res) => {
-  db.Note.findOneAndDelete({ _id: req.params.id }, (err, response) => {
+  db.Note.remove({ _id: req.params.id }, (err, response) => {
     res.sendStatus(200);
   });
 });

@@ -36,14 +36,30 @@ $(function () {
     const modalID = $(this).data("open");
     const id = $(this).data("id");
     console.log(id);
+    $(".body").html("");
+
     // console.log(note);
     $.ajax({ url: "/notes/" + id, method: "GET" }).then((data) => {
       console.log(data);
-      let noteBody = data[0].body;
-      let noteTitle = data[0].title;
+      let title;
+      let body;
+      let id;
+      data.forEach((element) => {
+        title = element.title;
+        body = element.body;
+        id = element._id;
+        let newTitle = `
+                          <h3 class="note-title">${title}</h3>
+                       `;
+        let newBody = `
+                          <p class="note-body">${body}</p>
+                      `;
+        let newId = `
+                   <button class="delete" data-note="${id}"><i class="fas fa-times"></i></button>
+                   `;
 
-      $(".note-body").html(noteBody);
-      $(".note-title").html(noteTitle);
+        $(".body").append(newTitle).append(newBody).append(newId);
+      });
 
       $("#" + modalID).addClass("is-visible");
     });
