@@ -35,12 +35,11 @@ $(function () {
   $(document).on("click", ".view-note", function (event) {
     const modalID = $(this).data("open");
     const id = $(this).data("id");
-    console.log(id);
+
     $(".body").html("");
 
     // console.log(note);
     $.ajax({ url: "/notes/" + id, method: "GET" }).then((data) => {
-      console.log(data);
       let title;
       let body;
       let id;
@@ -48,20 +47,17 @@ $(function () {
         title = element.title;
         body = element.body;
         id = element._id;
-        let newTitle = `
-                          <h3 class="note-title">${title}</h3>
-                       `;
-        let newBody = `
-                          <p class="note-body">${body}</p>
-                      `;
-        let newId = `
-                   <button class="delete" data-note="${id}"><i class="fas fa-times"></i></button>
-                   `;
-
+        let newTitle = `<h3 class="note-title">${title}</h3>`;
+        let newBody = `<p class="note-body">${body}</p>`;
+        let newId = `<button class="delete" data-note="${id}"><i class="fas fa-times"></i></button>`;
         $(".body").append(newTitle).append(newBody).append(newId);
       });
 
-      $("#" + modalID).addClass("is-visible");
+      if (data.length === 0) {
+        return;
+      } else {
+        $("#" + modalID).addClass("is-visible");
+      }
     });
   });
 
