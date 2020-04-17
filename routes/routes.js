@@ -90,7 +90,7 @@ router.get("/notes/:id", (req, res) => {
     response.note.forEach((note) => {
       noteArr.push(note);
     });
-    console.log(noteArr);
+
     db.Note.find({ _id: noteArr }, null, { lean: true }, function (error, data) {
       res.json(data);
     });
@@ -98,7 +98,8 @@ router.get("/notes/:id", (req, res) => {
 });
 
 router.delete("/note/:id", (req, res) => {
-  db.Note.remove({ _id: req.params.id }, (err, response) => {
+  db.Note.findOneAndDelete({ _id: req.params.id }, (err, response) => {
+    console.log("hello");
     res.sendStatus(200);
   });
 });
